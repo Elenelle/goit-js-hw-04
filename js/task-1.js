@@ -1,26 +1,34 @@
-// Напиши скрипт, который, для объекта user, последовательно:
+// Callback функция
 
-// добавляет поле mood со значением 'happy'
-// заменяет значение hobby на 'skydiving'
-// заменяет значение premium на false
-// выводит содержимое объекта user в формате ключ: значение используя Object.keys() и for...of
-let message = '';
+// Функция mapArray(array, cb), принимает 1 - м параметром array - массив чисел, а вторым параметром cb - функцию обратного вызова(callback).
+//Функция mapArray создает новый массив numbers и заполняет его числами из массива array преобразованными функцией cb.
 
-const user = {
-  name: 'Mango',
-  age: 20,
-  hobby: 'html',
-  premium: true,
-};
+// Оформи создание массива numbers нужной длины используя new Array() и необходимый аргумент для задания длины, равной длине array.
 
-user.mood = 'happy';
-user.hobby = 'skydiving';
-user.premium = false;
+// Напиши функцию обратного вызова addIndex, которая принимает два параметра - element и index и возвращает число - сумму element и index(сложение).
 
-const keys = Object.keys(user);
+// Напиши функцию обратного вызова subIndex, которая принимает два параметра - element и index и возвращает число - разность element и index(вычитание).
 
-for (const key of keys) {
-  message += `${key}:${user[key]}\n`;
+const addIndex = (element, index) => element + index;
+
+const subIndex = (element, index) => element - index;
+
+function mapArray(array, cb) {
+  'use strict';
+
+  const numbers = new Array(array.length);
+  for (let i = 0; i < array.length; i += 1) {
+    const element = array[i];
+    const index = i;
+    numbers[i] = cb(element, index);
+  }
+  return numbers;
 }
 
-console.log(message);
+const arr = [1, 2, 3, 4, 5];
+
+console.log(mapArray(arr, addIndex));
+// [1, 3, 5, 7, 9]
+
+console.log(mapArray(arr, subIndex));
+// [1, 1, 1, 1, 1]
