@@ -1,33 +1,36 @@
-//Напиши функцию countTotalSalary(employees) принимающую объект зарплат.
-//Функция считает общую сумму запрплаты работников и возращает ее.
-//Каждое поле объекта, передаваемого в функцию, имеет вид "имя": "зарплата".
+// this в методах объекта
 
-const countTotalSalary = function (employees) {
-  'use strict';
+// Расставь отсутствующие this в методах объекта account.
 
-  let total = 0;
+// В комментариях показаны операции с объектом и ожидаемые результаты.
 
-  for (const employe of Object.values(employees)) {
-    total += employe;
-  }
-
-  return total;
+const account = {
+  owner: 'Mango',
+  balance: 24000,
+  discount: 0.1,
+  orders: ['order-1', 'order-2', 'order-3'],
+  changeDiscount(value) {
+    this.discount = value; // Write code in this line
+  },
+  showOrders() {
+    return this.orders; // Write code in this line
+  },
+  addOrder(cost, order) {
+    this.balance -= cost; // Write code in this line
+    this.orders.push(order); // Write code in this line
+  },
 };
+const copyAccount = Object.assign({}, account);
+copyAccount.orders = [...account.orders];
+// копируем для автотестов ссылочные типы
 
-console.log(countTotalSalary({})); // 0
-
-console.log(
-  countTotalSalary({
-    mango: 100,
-    poly: 150,
-    alfred: 80,
-  }),
-); // 330
-
-console.log(
-  countTotalSalary({
-    kiwi: 200,
-    lux: 50,
-    chelsy: 150,
-  }),
-); // 400
+/*
+account.changeDiscount(0.15);
+//console.log(account.discount); // 0.15
+//console.log(account.showOrders());
+// ['order-1', 'order-2', 'order-3']
+account.addOrder(5000, 'order-4');
+//console.log(account.balance); // 19000
+//console.log(account.showOrders());
+// ['order-1', 'order-2', 'order-3', 'order-4']
+*/
