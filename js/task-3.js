@@ -1,43 +1,39 @@
-//Напиши функцию findBestEmployee(employees), которая принимает объект сотрудников и возвращает имя самого продуктивного(который выполнил больше всех задач).
-//Сотрудники и кол - во выполненых задач содержатся как свойства объекта в формате "имя": "кол-во задач".
+// Callback функция для получения одного вычисляемого значения массива
+// Функции add, sub и mult принимают два параметра - accum и element, возвращает число - сумму, разность или произведение параметров.
 
-const findBestEmployee = function (employees) {
+// Дополни тело функции reduceArray строкой присвоения accum вызова функции cb.
+// Функция reduceArray должна будет подсчитать сумму или разность или произведение всех элементов массива в зависимости от того какая именно из трех функция(add, mult, sub) будет передана в качестве cb.
+
+const add = (accum, element) => accum + element;
+const mult = (accum, element) => accum * element;
+const sub = (accum, element) => accum - element;
+
+function reduceArray(array, cb, initial) {
   'use strict';
-
-  const entries = Object.entries(employees);
-  let result = '';
-  let maxValue = 0;
-  for (const [name, value] of entries) {
-    if (value > maxValue) {
-      maxValue = value;
-      result = name;
-    }
+  let i;
+  let accum;
+  if (arguments.length >= 3) {
+    accum = initial;
+    i = 0;
   }
-  return result;
-};
+  if (arguments.length === 2) {
+    accum = array[0];
+    i = 1;
+  }
+  for (i; i < array.length; i += 1) {
+    const element = array[i];
+    accum = cb(accum, element);
+  }
+  return accum;
+}
 
-console.log(
-  findBestEmployee({
-    ann: 29,
-    david: 35,
-    helen: 1,
-    lorence: 99,
-  }),
-); // lorence
+const arr = [1, 2, 3, 4, 5];
 
-console.log(
-  findBestEmployee({
-    poly: 12,
-    mango: 17,
-    ajax: 4,
-  }),
-); // mango
+console.log(reduceArray(arr, add)); // 15
+console.log(reduceArray(arr, add, 10)); // 25
 
-console.log(
-  findBestEmployee({
-    lux: 147,
-    david: 21,
-    kiwi: 19,
-    chelsy: 38,
-  }),
-); // lux
+console.log(reduceArray(arr, mult)); // 120
+console.log(reduceArray(arr, mult, 10)); // 1200
+
+console.log(reduceArray(arr, sub)); // -13
+console.log(reduceArray(arr, sub, 10)); // -5
